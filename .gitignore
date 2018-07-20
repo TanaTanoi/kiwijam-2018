@@ -34,3 +34,7 @@ sysinfo.txt
 *.unitypackage
 .DS_STORE
 *.mdb
+
+ProjectSettings/*
+UnityPackageManager/*
+Packages/*
