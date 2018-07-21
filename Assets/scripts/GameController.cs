@@ -8,66 +8,104 @@ using UnityEngine.Playables;
 public class GameController : MonoBehaviour {
 
     [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private GameObject player;
     MenuController menuController;
 
-    [SerializeField] private PlayableDirector masterTimeline;
-    [SerializeField] private GameObject player;
+    private bool playing = false;
 
+    [SerializeField] private float timeBetweenWaves = 3f;
+
+    [Tooltip("waveNumber * enemiesWaveMultiplier = number of enemies to spawn")]
+    [SerializeField] private int enemiesWaveMultiplier = 50;
+
+    private bool waveActive = false;
+    private int waveNumber = 0;
+    private float nextWaveTime = 2f;
 
     void Start() {
         menuController = GetComponent<MenuController>();
         enemySpawner.SetPlayer(player.transform);
-
         LeaveGame();
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            PauseGame();
+            if (playing) {
+                PauseGame();
+            }
+            else {
+                ResumeGame();
+            }
+        }
+
+        if (playing) {
+            if (waveActive) {
+                // End of wave check
+                CheckForWaveEnd();
+            }
+            else {
+                if (Time.time >= nextWaveTime) {
+                    StartWave();
+                }
+            }
         }
     }
 
-    private void ResetGame() {
-        /*
-         * Disable the player
-         * clear all enemies
-         * reset the wave counter
-         * reset the player's health and position
-        */
-        //player.Reset();
-        player.SetActive(false);
-        player.transform.position = Vector3.up;
-        enemySpawner.enabled = false;
-        enemySpawner.DestroyAll();
-
+    private void StartWave() {
+        waveNumber++;
+        print("Starting wave " + waveNumber);
+        enemySpawner.EnemiesToSpawn = waveNumber * enemiesWaveMultiplier;
+        // TODO increase the spawn rate with waveNumber
+        enemySpawner.Spawning = true;
+        waveActive = true;
     }
+
+    private void CheckForWaveEnd() {
+        if (!enemySpawner.Spawning && enemySpawner.GetEnemiesRemaining() == 0) {
+            print("Ending wave " + waveNumber);
+            enemySpawner.Spawning = false;
+            nextWaveTime = Time.time + timeBetweenWaves;
+            waveActive = false;
+        }
+    }
+
+
+
 
     public void StartGame() {
         ResetGame();
         menuController.HideMenus();
         player.SetActive(true);
         enemySpawner.enabled = true;
-        masterTimeline.Play();
+        playing = true;
     }
 
     public void ResumeGame() {
-        masterTimeline.Resume();
         menuController.HideMenus();
-        enemySpawner.gameObject.SetActive(true);
+        enemySpawner.Spawning = true;
         player.SetActive(true);
+        playing = true;
     }
 
     public void PauseGame() {
-        masterTimeline.Pause();
         menuController.ShowPauseMenu();
-        enemySpawner.gameObject.SetActive(false);
+        enemySpawner.Spawning = false;
         player.SetActive(false);
+        playing = false;
     }
 
     public void LeaveGame() {
         menuController.ShowMainMenu();
-        masterTimeline.Stop();
+        playing = false;
         ResetGame();
+    }
+
+    private void ResetGame() {
+        player.SetActive(false);
+        player.transform.position = Vector3.up;
+        enemySpawner.enabled = false;
+        enemySpawner.DestroyAll();
+        waveNumber = 0;
     }
 
 	public void QuitGame() {

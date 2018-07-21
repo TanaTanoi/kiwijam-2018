@@ -9,6 +9,9 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField] private float intervalWiggle = 0.2f;
     [SerializeField] private Transform spawnRegion;
 
+    [HideInInspector] public bool Spawning = false;
+    [HideInInspector] public int EnemiesToSpawn = 0;
+
     private float nextSpawnTime = 0f;
     private Transform enemyTarget;
 
@@ -20,16 +23,26 @@ public class EnemySpawner : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (enemyTarget != null) {
-            if (Time.time > nextSpawnTime) {
-                nextSpawnTime = Time.time + spawnInterval + Random.Range(-intervalWiggle, intervalWiggle);
-                SpawnEnemy();
+        if (Spawning) {
+            if (enemyTarget != null) {
+                if (Time.time > nextSpawnTime) {
+                    nextSpawnTime = Time.time + spawnInterval + Random.Range(-intervalWiggle, intervalWiggle);
+                    SpawnEnemy();
+                    EnemiesToSpawn--;
+                    if (EnemiesToSpawn <= 0) {
+                        Spawning = false;
+                    }
+                }
+            }
+            else {
+                Debug.LogWarning("Attempted to spawn enemies while there is no player, disabling spawning.");
+                Spawning = false;
             }
         }
 	}
 
-    void OnDisable() {
-        nextSpawnTime = 0f;
+    public int GetEnemiesRemaining() {
+        return enemyPool.Count;
     }
 
     public void DestroyAll() {
