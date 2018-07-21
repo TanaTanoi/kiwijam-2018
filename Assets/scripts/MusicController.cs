@@ -7,11 +7,13 @@ public class MusicController : MonoBehaviour {
 	public AudioSource darkMusic;
 	public CharacterInput character;
 
+	public float Volume = 1;
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		float ratio = MusicRatio();
-		normalMusic.volume = ratio;
-		darkMusic.volume = 1 - ratio;
+		normalMusic.volume = ratio * this.Volume;
+		darkMusic.volume = 1 - ratio * this.Volume;
 	}
 
 	/* 1 for good music 0 for dark */
