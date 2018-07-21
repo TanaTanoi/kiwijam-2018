@@ -11,7 +11,6 @@ public class EnemySpawner : MonoBehaviour {
 
     float nextSpawnTime = 0f;
 
-
 	// Update is called once per frame
 	void Update () {
         if (Time.time > nextSpawnTime) {
