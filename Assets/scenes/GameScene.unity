@@ -3739,6 +3739,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1293608808537980, guid: 5961dec30acfa4e2a9aa5cea89687bc7,
     type: 2}
   m_PrefabInternal: {fileID: 1104914451}
+--- !u!114 &1104914454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114194309164715834, guid: 5961dec30acfa4e2a9aa5cea89687bc7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1104914451}
+  m_Script: {fileID: 11500000, guid: baa904f788a39492c98003c864ebcd95, type: 3}
 --- !u!1001 &1107873671
 Prefab:
   m_ObjectHideFlags: 0
@@ -4992,12 +4998,6 @@ Prefab:
       propertyPath: spawnRegion
       value: 
       objectReference: {fileID: 1236325214}
-    - target: {fileID: 114322095120962676, guid: 7bcbbfc72da6c445aa21970f58b5bcec,
-        type: 2}
-      propertyPath: enemyPrefab
-      value: 
-      objectReference: {fileID: 1617778374895168, guid: 2880913011d804b87b971ef0f510cc2a,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcbbfc72da6c445aa21970f58b5bcec, type: 2}
   m_IsPrefabAsset: 0
@@ -11011,6 +11011,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 114849355791805448, guid: 370c2d2d8c5614c239c223ede0d25e43,
+        type: 2}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1104914454}
     - target: {fileID: 114135355639467220, guid: 370c2d2d8c5614c239c223ede0d25e43,
         type: 2}
       propertyPath: menuPanel
@@ -11033,14 +11038,14 @@ Prefab:
       objectReference: {fileID: 179671544}
     - target: {fileID: 114934432510387016, guid: 370c2d2d8c5614c239c223ede0d25e43,
         type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1104914452}
-    - target: {fileID: 114934432510387016, guid: 370c2d2d8c5614c239c223ede0d25e43,
-        type: 2}
       propertyPath: masterTimeline
       value: 
       objectReference: {fileID: 1637098760}
+    - target: {fileID: 114934432510387016, guid: 370c2d2d8c5614c239c223ede0d25e43,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1104914452}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 370c2d2d8c5614c239c223ede0d25e43, type: 2}
   m_IsPrefabAsset: 0

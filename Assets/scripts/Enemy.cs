@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour {
 		this.rigidbody.isKinematic = true;
 		this.Health = this.MaxHealth;
 		animator = GetComponent<Animator>();
-
+        animator.SetBool("moving", true);
 		this.Prepare();
 	}
 
