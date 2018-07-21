@@ -26,14 +26,15 @@ public class Enemy : MonoBehaviour {
 		this.rigidbody = this.GetComponent<Rigidbody>();
 		this.rigidbody.isKinematic = true;
 		this.Health = this.MaxHealth;
-		animator = GetComponent<Animator>();
-        animator.SetBool("moving", true);
+		this.animator = GetComponent<Animator>();
+        this.animator.SetFloat("speed", -1);
 		this.Prepare();
 	}
 
 	void Awake() {
 		this.agent = this.agent ?? this.GetComponent<NavMeshAgent>();
 		this.rigidbody = this.rigidbody ?? this.GetComponent<Rigidbody>();
+		this.animator = this.animator ?? GetComponent<Animator>();
 		this.rigidbody.isKinematic = true;
 		this.Health = this.MaxHealth;
 	}
@@ -53,6 +54,7 @@ public class Enemy : MonoBehaviour {
 			this.Kill();
 		}
 		this.UpdateBehaviour();
+		this.animator.SetFloat("speed", this.agent.velocity.magnitude);
 
 		if (this.stunned && this.timeSinceStunned > this.stunDuration) {
 			this.stunned = false;
