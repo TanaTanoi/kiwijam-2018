@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour {
 	TimeSince timeSinceStunned;
 	private float stunDuration = 0;
 	protected bool stunned = false;
-	public virtual float MaxHealth { get { return 1; } }
+	public virtual float MaxHealth { get { return 10; } }
 
 	public float Health { get; private set; }
 
@@ -26,8 +26,16 @@ public class Enemy : MonoBehaviour {
 		this.Prepare();
 	}
 
+	void Awake() {
+		this.agent = this.agent ?? this.GetComponent<NavMeshAgent>();
+		this.rigidbody = this.rigidbody ?? this.GetComponent<Rigidbody>();
+		this.rigidbody.isKinematic = true;
+		this.Health = this.MaxHealth;
+	}
+
 	protected virtual void Prepare() {}
 
+	/* Hit by bullet thing */
 	void OnParticleCollision(GameObject other) {
 		// TODO: balance health loss per particle hit against particle amount
 		this.Health--;

@@ -11,6 +11,7 @@ public class CharacterInput : MonoBehaviour {
 	private double regenRate = 1;
 	private double health;
 
+	TimeSince timeSinceLastKicked;
 
 	void Start() {
 		health = MAX_HEALTH;
@@ -20,9 +21,32 @@ public class CharacterInput : MonoBehaviour {
 		ApplyRegen();
 		FaceMouse();
 		MovePlayer();
+		Kick();
 	}
 
 	void OnTriggerStay(Collider other) { health -= 0.5 * Time.deltaTime; }
+
+	private void Kick() {
+		if (this.timeSinceLastKicked > 2 && Input.GetKeyDown(KeyCode.Q)) {
+			this.timeSinceLastKicked = 0;
+			Collider[] hitColliders = Physics.OverlapSphere(transform.forward + transform.position, 2);
+			for (int i = 0; i < hitColliders.Length; i++) {
+				Collider collider = hitColliders[i];
+				Vector3 direction = (collider.transform.position - transform.position).normalized;
+				if (Vector3.Dot(direction, transform.forward) > 0.5) {
+					Enemy enemy = collider.GetComponent<Enemy>();
+					Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
+					float multiplier = UnityEngine.Random.Range(450, 600);
+					Vector3 force = direction * multiplier + transform.forward * multiplier + transform.up * 300;
+					if (enemy != null) {
+						enemy.Launch(force, 3);
+					} else if (rigidbody != null) {
+						rigidbody.AddForce(force);
+					}
+				}
+			}
+		}
+	}
 
 	private void ApplyRegen() {
 		health += regenRate * Time.deltaTime;
