@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterInput : MonoBehaviour {
 	public Camera camera;
+	public Slider HealthBar;
 
 	private const float SPEED = 5;
 	private const int MAX_HEALTH = 100;
 
-	private double regenRate = 1;
+	private double regenRate = 3;
 	public double RegenRate { get { return this.regenRate; } }
 	private double health;
 	public double Health { get { return this.health; } }
+
 
 	TimeSince timeSinceLastKicked;
 
@@ -25,6 +28,8 @@ public class CharacterInput : MonoBehaviour {
 			FaceMouse();
 			MovePlayer();
 			Kick();
+
+			UpdateHealthBar();
 		}
 		else {
 			// Do death things
@@ -93,6 +98,10 @@ public class CharacterInput : MonoBehaviour {
 		);
 
 		transform.position += movement * SPEED * Time.deltaTime;
+	}
+
+	private void UpdateHealthBar() {
+		HealthBar.value = (float)(health/MAX_HEALTH);
 	}
 
 	private bool Alive() { return health > 0; }
