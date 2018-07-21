@@ -18,8 +18,25 @@ public class ChargeEnemy : Enemy {
 			}
 		}
 	}
+
+	public virtual float MaxHealth { get { return 10; } }
+
 	private bool FinishedCharging { get { return this.IsCharging && this.currentMovePositionIndex >= this.movePositions.Count; } }
 	public const float CHARGE_DISTANCE = 30;
+
+	public override void HitSomething(Collider collider) {
+		Vector3 direction = (collider.transform.position - transform.position).normalized;
+		Enemy enemy = collider.GetComponent<Enemy>();
+		Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
+		float multiplier = UnityEngine.Random.Range(200, 400);
+		Vector3 force = direction * multiplier + transform.up * 100;
+		if (enemy != null) {
+			enemy.Launch(force, 1);
+		} else if (rigidbody != null) {
+			rigidbody.AddForce(force);
+		}
+		base.HitSomething(collider);
+	}
 
 	public override void UpdateBehaviour() {
 		if (this.stunned || !this.agent.isOnNavMesh) {
@@ -54,6 +71,13 @@ public class ChargeEnemy : Enemy {
 		return UnityEngine.Random.Range(0, 1f) > 0.8f;
 	}
 
+	public override void Launch(Vector3 direction, float stunDuration) {
+		if (this.Health <= 0) {
+			base.Launch(direction, stunDuration);
+		}
+		// can't launch things
+	}
+
 	public void CalculateSwoopPath() {
 		Vector3 direction = this.Target.transform.position - this.transform.position;
 		Vector3 bisector = new Vector3(-direction.z, direction.y, direction.x).normalized;
@@ -62,6 +86,6 @@ public class ChargeEnemy : Enemy {
 		this.movePositions.Clear();
 		this.movePositions.Add(this.transform.position);
 		this.movePositions.Add(this.Target.transform.position);
-		this.movePositions.Add(this.Target.transform.position + direction * 0.4f);
+		this.movePositions.Add(this.Target.transform.position + direction * 0.4f + direction.normalized * 10);
 	}
 }

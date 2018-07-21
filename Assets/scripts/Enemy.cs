@@ -16,9 +16,11 @@ public class Enemy : MonoBehaviour {
 	TimeSince timeSinceStunned;
 	private float stunDuration = 0;
 	protected bool stunned = false;
-	public virtual float MaxHealth { get { return 10; } }
+	public virtual float MaxHealth { get { return 1; } }
 
 	public float Health { get; private set; }
+
+	public virtual float Damage { get { return 1; } }
 
 	public void Spawn(Transform target) {
         this.Target = target;
@@ -28,7 +30,6 @@ public class Enemy : MonoBehaviour {
 		this.Health = this.MaxHealth;
 		this.animator = GetComponent<Animator>();
         this.animator.SetFloat("speed", -1);
-		this.Prepare();
 	}
 
 	void Awake() {
@@ -39,7 +40,16 @@ public class Enemy : MonoBehaviour {
 		this.Health = this.MaxHealth;
 	}
 
-	protected virtual void Prepare() {}
+	public void OnCollisionEnter(Collider other) {
+		this.HitSomething(other);
+	}
+
+	public virtual void HitSomething(Collider other) {
+		CharacterInput player = other.GetComponent<CharacterInput>();
+		if (player != null) {
+			player.TakeHealth(this.Damage);
+		}
+	}
 
 	/* Hit by bullet thing */
 	void OnParticleCollision(GameObject other) {
@@ -78,6 +88,7 @@ public class Enemy : MonoBehaviour {
 	public bool Kill() {
 		this.agent.enabled = false;
 		this.rigidbody.isKinematic = false;
+		Debug.Log("I DED :(");
 		return true;
 	}
 
@@ -95,7 +106,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	/* detaches it from the navmesh and sends it flying */
-	public void Launch(Vector3 direction, float stunDuration) {
+	public virtual void Launch(Vector3 direction, float stunDuration) {
 		this.agent.enabled = false;
 		this.rigidbody.isKinematic = false;
 		if (this.stunned) {
