@@ -9,7 +9,9 @@ public class CharacterInput : MonoBehaviour {
 	private const int MAX_HEALTH = 100;
 
 	private double regenRate = 1;
+	public double RegenRate { get { return this.regenRate; } }
 	private double health;
+	public double Health { get { return this.health; } }
 
 	TimeSince timeSinceLastKicked;
 
@@ -22,9 +24,16 @@ public class CharacterInput : MonoBehaviour {
 		FaceMouse();
 		MovePlayer();
 		Kick();
+		health += regenRate * Time.deltaTime;;
 	}
 
-	void OnTriggerStay(Collider other) { health -= 0.5 * Time.deltaTime; }
+	void OnTriggerEnter(Collider other) {
+		regenRate -= 0.05f;
+	}
+
+	void OnTriggerExit(Collider other) {
+		regenRate += 0.05f;
+	}
 
 	private void Kick() {
 		if (this.timeSinceLastKicked > 2 && Input.GetKeyDown(KeyCode.Q)) {
