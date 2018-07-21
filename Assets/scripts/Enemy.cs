@@ -6,9 +6,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour {
-	public Transform target;
+	public Transform Target;
 	protected NavMeshAgent agent;
-	private Vector3 destination;
+	protected Vector3 destination;
 	private Rigidbody rigidbody;
 	TimeSince timeSinceStunned;
 	private float stunDuration = 0;
@@ -21,12 +21,16 @@ public class Enemy : MonoBehaviour {
 		this.agent = this.GetComponent<NavMeshAgent>();
 		this.rigidbody = this.GetComponent<Rigidbody>();
 		this.rigidbody.isKinematic = true;
+		this.Health = this.MaxHealth;
+		this.Prepare();
 	}
+
+	protected virtual void Prepare() {}
 
 	void OnParticleCollision(GameObject other) {
 		// TODO: balance health loss per particle hit against particle amount
 		this.Health--;
-		Vector3 shotDirection = (other.transform.position - this.transform.position).normalized;
+		Vector3 shotDirection = (this.transform.position - other.transform.position).normalized;
 		this.Launch(shotDirection, 0.1f);
     }
 
@@ -34,15 +38,13 @@ public class Enemy : MonoBehaviour {
 		if (this.Health <= 0) {
 			this.Kill();
 		}
-		if (this.agent.isOnNavMesh && Vector3.Distance(destination, target.position) > 1.0f) {
-			this.UpdateBehaviour();
-		}
+		this.UpdateBehaviour();
 		// debug
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			this.Launch(Vector3.right * 100, 3);
 		}
 
-		if (this.timeSinceStunned > this.stunDuration) {
+		if (this.stunned && this.timeSinceStunned > this.stunDuration) {
 			this.stunned = false;
 			this.agent.enabled = true;
 			this.rigidbody.isKinematic = true;
@@ -50,14 +52,16 @@ public class Enemy : MonoBehaviour {
 				// if we are not on the mesh and we can't get on the mesh, give up
 				return;
 			}
-			destination = target.position;
-            agent.destination = destination;
+			this.UpdateBehaviour();
 		}
 	}
 
 	public virtual void UpdateBehaviour() {
-        this.destination = target.position;
-        this.agent.destination = destination;
+		Debug.Log("doing base");
+		if (this.agent.isOnNavMesh && Vector3.Distance(destination, Target.position) > 1.0f) {
+	        this.destination = Target.position;
+	        this.agent.destination = destination;
+		}
 	}
 
 	public bool Kill() {

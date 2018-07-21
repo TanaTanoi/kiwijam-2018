@@ -2,29 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class CharacterInput : MonoBehaviour {
 	public Camera camera;
-	CharacterController controller;
-	// Use this for initialization
-	void Start () {
-		this.controller = this.GetComponent<CharacterController>();
+
+	// private Rigidbody rb;
+	private const float speed = 5;
+
+	// void Start() {
+	// 	rb = GetComponent<Rigidbody>();
+	// }
+
+	void Update() {
+		FaceMouse();
+
+		Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+		transform.Translate(movement * speed * Time.deltaTime);
 	}
 
-	// Update is called once per frame
-	void Update () {
-		// stuff for mouse direction
-		// RaycastHit hit;
-        // Ray ray = this.camera.ScreenPointToRay(Input.mousePosition);
-        // if (Physics.Raycast(ray, out hit)) {
-        //     Vector3 hitPos = hit.point;
-		// 	Vector3 direction = hitPos - controller.transform.position;
-		// 	direction.Normalize();
-        // }
+	private void FaceMouse() {
+		RaycastHit hit;
+		Ray ray = this.camera.ScreenPointToRay(Input.mousePosition);
+		if (Physics.Raycast(ray, out hit)) {
+			Vector3 hitPos = hit.point;
 
-		float vertical = Input.GetAxis("Vertical");
-		float horizontal = Input.GetAxis("Horizontal");
-		Vector3 direction = new Vector3(-vertical, 0, horizontal);
-		this.controller.SimpleMove(direction.normalized * 10);
+			transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+		}
 	}
 }
