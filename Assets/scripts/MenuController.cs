@@ -10,33 +10,30 @@ public class MenuController : MonoBehaviour {
     [SerializeField] private float volume = 0.5f;
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject pausePanel;
 
     public void SetVolume(float vol) {
         volume = vol;
     }
 
-    void Start() {
-        ShowMenu(true);
+    public void ShowMainMenu() {
+        menuPanel.SetActive(true);
+        settingsPanel.SetActive(false);
+        pausePanel.SetActive(false);
     }
 
-    public void ShowMenu(bool active) {
-        // TODO, start or stop the game, tell the game controller to reset
-        //       the game state.
+    public void ShowPauseMenu() {
+        menuPanel.SetActive(false);
+        pausePanel.SetActive(true);
+    }
 
-        menuPanel.SetActive(active);
-        if (active) {
-            Time.timeScale = 0f;
-        }
-        else {
-            Time.timeScale = 1f;
-        }
+    public void HideMenus() {
+        menuPanel.SetActive(false);
+        pausePanel.SetActive(false);
     }
 
     public void ToggleSettings() {
         settingsPanel.SetActive(!settingsPanel.activeSelf);
     }
 
-    public void QuitGame() {
-        Application.Quit();
-    }
 }
