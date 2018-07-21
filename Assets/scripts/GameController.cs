@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour {
         */
         //player.Reset();
         player.SetActive(false);
+        player.transform.position = Vector3.up;
         enemySpawner.enabled = false;
         enemySpawner.DestroyAll();
 
@@ -53,12 +54,14 @@ public class GameController : MonoBehaviour {
         masterTimeline.Resume();
         menuController.HideMenus();
         enemySpawner.gameObject.SetActive(true);
+        player.SetActive(true);
     }
 
     public void PauseGame() {
         masterTimeline.Pause();
         menuController.ShowPauseMenu();
         enemySpawner.gameObject.SetActive(false);
+        player.SetActive(false);
     }
 
     public void LeaveGame() {
