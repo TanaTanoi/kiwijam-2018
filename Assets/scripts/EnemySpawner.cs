@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour {
             Vector3 spawnPosition = new Vector3(spawnRegion.position.x, spawnRegion.position.y, spawnRegion.position.z);
             spawnPosition.x += Random.Range(-(spawnRegion.lossyScale.x/2), spawnRegion.lossyScale.x/2);
             spawnPosition.y += Random.Range(-(spawnRegion.lossyScale.y/2), spawnRegion.lossyScale.y/2);
-            spawnPosition.z += Random.Range(-(spawnRegion.lossyScale.z/2), spawnRegion.lossyScale.z/2
+            spawnPosition.z += Random.Range(-(spawnRegion.lossyScale.z/2), spawnRegion.lossyScale.z/2);
 
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
 
