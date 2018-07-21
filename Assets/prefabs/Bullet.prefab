@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 4548078118093996}
   - component: {fileID: 198425371754275244}
   - component: {fileID: 199631282193757522}
+  - component: {fileID: 135286438015444482}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -143,7 +144,19 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.0000009536743, y: 0, z: 0.0000019073486}
+--- !u!135 &135286438015444482
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1292353010926138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 100
+  m_Center: {x: 0, y: -0.00000047683716, z: 0.000015258789}
 --- !u!198 &198425371754275244
 ParticleSystem:
   m_ObjectHideFlags: 1

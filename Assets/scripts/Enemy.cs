@@ -17,7 +17,8 @@ public class Enemy : MonoBehaviour {
 
 	public float Health { get; private set; }
 
-	void Start() {
+	public void Spawn(Transform target) {
+        this.Target = target;
 		this.agent = this.GetComponent<NavMeshAgent>();
 		this.rigidbody = this.GetComponent<Rigidbody>();
 		this.rigidbody.isKinematic = true;
@@ -31,7 +32,7 @@ public class Enemy : MonoBehaviour {
 		// TODO: balance health loss per particle hit against particle amount
 		this.Health--;
 		Vector3 shotDirection = (this.transform.position - other.transform.position).normalized;
-		this.Launch(shotDirection, 0.1f);
+		this.Launch(shotDirection, 0.1f); // TODO magic numbers are fun
     }
 
 	public void Update() {

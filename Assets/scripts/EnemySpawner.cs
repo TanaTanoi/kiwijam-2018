@@ -9,19 +9,34 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField] private float intervalWiggle = 0.2f;
     [SerializeField] private Transform spawnRegion;
 
-    float nextSpawnTime = 0f;
+    private float nextSpawnTime = 0f;
+    private Transform enemyTarget;
+
+    List<GameObject> enemyPool = new List<GameObject>();
+
+    public void SetPlayer(Transform target) {
+        this.enemyTarget = target;
+    }
 
 	// Update is called once per frame
 	void Update () {
-        if (Time.time > nextSpawnTime) {
-            nextSpawnTime = Time.time + spawnInterval + Random.Range(-intervalWiggle, intervalWiggle);
-            SpawnEnemy();
+        if (enemyTarget != null) {
+            if (Time.time > nextSpawnTime) {
+                nextSpawnTime = Time.time + spawnInterval + Random.Range(-intervalWiggle, intervalWiggle);
+                SpawnEnemy();
+            }
         }
 	}
 
     void OnDisable() {
         nextSpawnTime = 0f;
-        // TODO remove all currently spawned enemies?
+    }
+
+    public void DestroyAll() {
+        foreach (GameObject e in enemyPool) {
+            Destroy(e);
+        }
+        enemyPool.Clear();
     }
 
     private void SpawnEnemy() {
@@ -30,6 +45,8 @@ public class EnemySpawner : MonoBehaviour {
         spawnPosition.y += Random.Range(-(spawnRegion.lossyScale.y/2), spawnRegion.lossyScale.y/2);
         spawnPosition.z += Random.Range(-(spawnRegion.lossyScale.z/2), spawnRegion.lossyScale.z/2);
 
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
+        GameObject instance = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
+        instance.GetComponent<Enemy>().Spawn(enemyTarget);
+        enemyPool.Add(instance);
     }
 }
