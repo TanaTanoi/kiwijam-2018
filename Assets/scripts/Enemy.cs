@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour {
 	private Rigidbody rigidbody;
 	TimeSince timeSinceStunned;
 	private float stunDuration = 0;
-	private bool stunned = false;
+	protected bool stunned = false;
 	public virtual float MaxHealth { get { return 1; } }
 
 	public float Health { get; private set; }
@@ -39,10 +39,6 @@ public class Enemy : MonoBehaviour {
 			this.Kill();
 		}
 		this.UpdateBehaviour();
-		// debug
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			this.Launch(Vector3.right * 100, 3);
-		}
 
 		if (this.stunned && this.timeSinceStunned > this.stunDuration) {
 			this.stunned = false;
@@ -57,7 +53,6 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public virtual void UpdateBehaviour() {
-		Debug.Log("doing base");
 		if (this.agent.isOnNavMesh && Vector3.Distance(destination, Target.position) > 1.0f) {
 	        this.destination = Target.position;
 	        this.agent.destination = destination;
@@ -78,7 +73,7 @@ public class Enemy : MonoBehaviour {
 			this.agent.Warp(hit.position);
 			return true;
 		} else {
-			Destroy(this.gameObject);
+			// Destroy(this.gameObject);
 			return false;
 		}
 	}
