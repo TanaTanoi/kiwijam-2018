@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor.Animations;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour {
 	public Transform Target;
+
 	protected NavMeshAgent agent;
 	protected Vector3 destination;
+	private Animator animator;
 	private Rigidbody rigidbody;
 	TimeSince timeSinceStunned;
 	private float stunDuration = 0;
@@ -23,6 +26,8 @@ public class Enemy : MonoBehaviour {
 		this.rigidbody = this.GetComponent<Rigidbody>();
 		this.rigidbody.isKinematic = true;
 		this.Health = this.MaxHealth;
+		animator = GetComponent<Animator>();
+
 		this.Prepare();
 	}
 

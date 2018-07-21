@@ -20,11 +20,15 @@ public class CharacterInput : MonoBehaviour {
 	}
 
 	void Update() {
-		ApplyRegen();
-		FaceMouse();
-		MovePlayer();
-		Kick();
-		health += regenRate * Time.deltaTime;;
+		if (Alive()) {
+			ApplyRegen();
+			FaceMouse();
+			MovePlayer();
+			Kick();
+		}
+		else {
+			// Do death things
+		}
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -57,6 +61,14 @@ public class CharacterInput : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerStay(Collider collider) {
+		if (collider.gameObject.CompareTag("Toxic")) {
+			health -= 0.5 * Time.deltaTime;
+		}
+  }
+
+	double getHealth() { return health; }
+
 	private void ApplyRegen() {
 		health += regenRate * Time.deltaTime;
 		if (health > MAX_HEALTH) health = MAX_HEALTH;
@@ -82,4 +94,6 @@ public class CharacterInput : MonoBehaviour {
 
 		transform.position += movement * SPEED * Time.deltaTime;
 	}
+
+	private bool Alive() { return health > 0; }
 }
