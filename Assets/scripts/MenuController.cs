@@ -11,9 +11,10 @@ public class MenuController : MonoBehaviour {
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject pausePanel;
+    public MusicController MusicController;
 
     public void SetVolume(float vol) {
-        volume = vol;
+        MusicController.Volume = vol;
     }
 
     public void ShowMainMenu() {

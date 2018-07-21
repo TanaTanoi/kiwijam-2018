@@ -1,0 +1,173 @@
+fileFormatVersion: 2
+guid: af07ce33217dc42278cbbc7f36954822
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: back
+    100002: body_base
+    100004: fishBody
+    100006: head
+    100008: L_ankle
+    100010: L_eye
+    100012: L_eyeball
+    100014: L_fin_frame
+    100016: L_fin_web
+    100018: L_foot_ik
+    100020: L_hip
+    100022: L_knee
+    100024: L_leg_ik
+    100026: L_toe
+    100028: L_wing
+    100030: //RootNode
+    100032: R_ankle
+    100034: R_eye
+    100036: R_eyeball
+    100038: R_fin_frame
+    100040: R_fin_web
+    100042: R_foot_like
+    100044: R_hip
+    100046: R_knee
+    100048: R_leg_ik
+    100050: R_toe
+    100052: R_wing
+    100054: spine_base
+    100056: tooth_l
+    100058: tooth_mid
+    100060: tooth_r
+    400000: back
+    400002: body_base
+    400004: fishBody
+    400006: head
+    400008: L_ankle
+    400010: L_eye
+    400012: L_eyeball
+    400014: L_fin_frame
+    400016: L_fin_web
+    400018: L_foot_ik
+    400020: L_hip
+    400022: L_knee
+    400024: L_leg_ik
+    400026: L_toe
+    400028: L_wing
+    400030: //RootNode
+    400032: R_ankle
+    400034: R_eye
+    400036: R_eyeball
+    400038: R_fin_frame
+    400040: R_fin_web
+    400042: R_foot_like
+    400044: R_hip
+    400046: R_knee
+    400048: R_leg_ik
+    400050: R_toe
+    400052: R_wing
+    400054: spine_base
+    400056: tooth_l
+    400058: tooth_mid
+    400060: tooth_r
+    2100000: goldfish_orange
+    2100002: dark_orange
+    2100004: teeth_whtie
+    2100006: lime_green_pupil
+    4300000: R_fin_frame
+    4300002: R_fin_web
+    4300004: L_fin_frame
+    4300006: L_fin_web
+    4300008: L_eyeball
+    4300010: R_eyeball
+    4300012: fishBody
+    4300014: tooth_l
+    4300016: tooth_r
+    4300018: tooth_mid
+    9500000: //RootNode
+    13700000: fishBody
+    13700002: L_eyeball
+    13700004: L_fin_frame
+    13700006: L_fin_web
+    13700008: R_eyeball
+    13700010: R_fin_frame
+    13700012: R_fin_web
+    13700014: tooth_l
+    13700016: tooth_mid
+    13700018: tooth_r
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
