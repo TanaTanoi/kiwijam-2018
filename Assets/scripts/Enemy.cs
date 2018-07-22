@@ -7,6 +7,11 @@ using UnityEditor.Animations;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour {
+	protected const float BASE_DAMAGE = 5;
+	protected const float SHELL_DAMAGE_BOOST = 2;
+
+	protected const double BASE_SPEED = 2;
+	protected const double SHELL_SPEED_BOOST = 1;
 
 	public Transform Target;
 
@@ -21,7 +26,10 @@ public class Enemy : MonoBehaviour {
 
 	public float Health { get; private set; }
 
-	public virtual float Damage { get { return 1; } }
+	public float Damage = BASE_DAMAGE;
+
+	protected int shells;
+	private AudioSource attackSound;
 
     private GameController gameController;
     private bool alive = true;
@@ -44,8 +52,24 @@ public class Enemy : MonoBehaviour {
 		this.agent = this.agent ?? this.GetComponent<NavMeshAgent>();
 		this.rigidbody = this.rigidbody ?? this.GetComponent<Rigidbody>();
 		this.animator = this.animator ?? GetComponent<Animator>();
+		attackSound = attackSound ?? GetComponent<AudioSource>();
 		this.rigidbody.isKinematic = true;
 		this.Health = this.MaxHealth;
+	}
+
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.CompareTag("Toxic")) { UpdateShellEffects(1); }
+	}
+
+	void OnTriggerExit(Collider other) {
+		if (other.gameObject.CompareTag("Toxic")) { UpdateShellEffects(-1); }
+	}
+
+	void UpdateShellEffects(int delta) {
+		shells+=delta;
+
+		agent.speed = (float)(BASE_SPEED + shells * SHELL_SPEED_BOOST);
+		Damage = BASE_DAMAGE + shells * SHELL_DAMAGE_BOOST;
 	}
 
 	public void OnCollisionEnter(Collision other) {
@@ -55,7 +79,8 @@ public class Enemy : MonoBehaviour {
 	public virtual void HitSomething(Collider other) {
 		CharacterInput player = other.GetComponent<CharacterInput>();
 		if (player != null) {
-			Debug.Log("du hurt me ");
+			Launch(-transform.forward * 200 + transform.up * 50, 0.3f);
+			attackSound.Play();
 			player.TakeHealth(this.Damage);
 		}
 	}
@@ -66,7 +91,7 @@ public class Enemy : MonoBehaviour {
 		this.Health--;
 		Vector3 shotDirection = (this.transform.position - other.transform.position).normalized * 100;
 		this.Launch(shotDirection, 0.1f); // TODO magic numbers are fun
-    }
+  }
 
 	public void Update() {
         if (!alive) {return;}
@@ -100,7 +125,7 @@ public class Enemy : MonoBehaviour {
         alive = false;
 		this.agent.enabled = false;
 		this.rigidbody.isKinematic = false;
-        gameController.IncrementKills(gameObject);
+    gameController.IncrementKills(gameObject);
 		return true;
 	}
 
