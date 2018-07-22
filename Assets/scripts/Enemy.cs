@@ -55,6 +55,7 @@ public class Enemy : MonoBehaviour {
 	public virtual void HitSomething(Collider other) {
 		CharacterInput player = other.GetComponent<CharacterInput>();
 		if (player != null) {
+			Debug.Log("du hurt me ");
 			player.TakeHealth(this.Damage);
 		}
 	}
@@ -63,7 +64,7 @@ public class Enemy : MonoBehaviour {
 	void OnParticleCollision(GameObject other) {
 		// TODO: balance health loss per particle hit against particle amount
 		this.Health--;
-		Vector3 shotDirection = (this.transform.position - other.transform.position).normalized;
+		Vector3 shotDirection = (this.transform.position - other.transform.position).normalized * 100;
 		this.Launch(shotDirection, 0.1f); // TODO magic numbers are fun
     }
 
