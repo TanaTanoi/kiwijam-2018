@@ -15,6 +15,9 @@ public class CharacterInput : MonoBehaviour {
 	private double health;
 	public double Health { get { return this.health; } }
 
+	private int shells = 0;
+	private const double SHELL_DAMAGE = 0.5;
+
 	TimeSince timeSinceLastKicked;
 
 	void Update() {
@@ -36,11 +39,11 @@ public class CharacterInput : MonoBehaviour {
     }
 
 	void OnTriggerEnter(Collider other) {
-		regenRate -= 0.05f;
+		if (other.gameObject.CompareTag("Toxic")) { shells++; }
 	}
 
 	void OnTriggerExit(Collider other) {
-		regenRate += 0.05f;
+		if (other.gameObject.CompareTag("Toxic")) { shells--; }
 	}
 
 	public void TakeHealth(float hp) {
@@ -69,16 +72,12 @@ public class CharacterInput : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerStay(Collider collider) {
-		if (collider.gameObject.CompareTag("Toxic")) {
-			health -= 0.5 * Time.deltaTime;
-		}
-  }
-
 	double getHealth() { return health; }
 
 	private void ApplyRegen() {
-		health += regenRate * Time.deltaTime;
+		double shellDamage = shells * SHELL_DAMAGE;
+
+		health += (regenRate - shellDamage) * Time.deltaTime;
 		if (health > MAX_HEALTH) health = MAX_HEALTH;
 	}
 
