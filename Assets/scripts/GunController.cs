@@ -27,6 +27,7 @@ public class GunController : MonoBehaviour {
 			this.laserSound.pitch = UnityEngine.Random.Range(2.1f, 2.3f);
 			this.laserSound.Play();
 			this.rb.AddForce(-rb.transform.forward * 300);
+			CameraController.instance.Shake(0.01f, 0.3f);
 
 			shot.Play();
 		}

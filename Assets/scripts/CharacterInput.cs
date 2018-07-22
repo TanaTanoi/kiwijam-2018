@@ -52,6 +52,7 @@ public class CharacterInput : MonoBehaviour {
 
 	private void Kick() {
 		if (this.timeSinceLastKicked > 2 && Input.GetKeyDown(KeyCode.Q)) {
+			CameraController.instance.Shake(0.05f, 0.5f);
 			this.timeSinceLastKicked = 0;
 			Collider[] hitColliders = Physics.OverlapSphere(transform.forward * 0.1f + transform.position, 3);
 			for (int i = 0; i < hitColliders.Length; i++) {
