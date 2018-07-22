@@ -100,6 +100,7 @@ public class Enemy : MonoBehaviour {
         alive = false;
 		this.agent.enabled = false;
 		this.rigidbody.isKinematic = false;
+        gameObject.tag = "Untagged";
         gameController.IncrementKills(gameObject);
 		return true;
 	}
