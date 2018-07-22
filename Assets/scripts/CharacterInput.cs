@@ -44,6 +44,10 @@ public class CharacterInput : MonoBehaviour {
 		regenRate += 0.05f;
 	}
 
+	public void TakeHealth(float hp) {
+		this.health -= hp;
+	}
+
 	private void Kick() {
 		if (this.timeSinceLastKicked > 2 && Input.GetKeyDown(KeyCode.Q)) {
 			this.timeSinceLastKicked = 0;
