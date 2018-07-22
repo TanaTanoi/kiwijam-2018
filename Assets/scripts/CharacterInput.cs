@@ -15,12 +15,7 @@ public class CharacterInput : MonoBehaviour {
 	private double health;
 	public double Health { get { return this.health; } }
 
-
 	TimeSince timeSinceLastKicked;
-
-	void Start() {
-		health = MAX_HEALTH;
-	}
 
 	void Update() {
 		if (Alive()) {
@@ -35,6 +30,10 @@ public class CharacterInput : MonoBehaviour {
 			// Do death things
 		}
 	}
+
+    public void RestoreHealth() {
+        health = MAX_HEALTH;
+    }
 
 	void OnTriggerEnter(Collider other) {
 		regenRate -= 0.05f;
@@ -108,5 +107,7 @@ public class CharacterInput : MonoBehaviour {
 		HealthBar.value = (float)(health/MAX_HEALTH);
 	}
 
-	private bool Alive() { return health > 0; }
+	public bool Alive() {
+        return health > 0;
+    }
 }

@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
 
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private GameObject player;
+    private CharacterInput playerInput;
     MenuController menuController;
 
     private bool playing = false;
@@ -22,8 +23,11 @@ public class GameController : MonoBehaviour {
     private int waveNumber = 0;
     private float nextWaveTime = 2f;
 
+    private int playerKills = 0;
+
     void Start() {
         menuController = GetComponent<MenuController>();
+        playerInput = player.GetComponent<CharacterInput>();
         enemySpawner.SetPlayer(player.transform);
         LeaveGame();
     }
@@ -39,6 +43,7 @@ public class GameController : MonoBehaviour {
         }
 
         if (playing) {
+            CheckDeath();
             if (waveActive) {
                 // End of wave check
                 CheckForWaveEnd();
@@ -53,7 +58,6 @@ public class GameController : MonoBehaviour {
 
     private void StartWave() {
         waveNumber++;
-        print("Starting wave " + waveNumber);
         enemySpawner.EnemiesToSpawn = waveNumber * enemiesWaveMultiplier;
         // TODO increase the spawn rate with waveNumber
         enemySpawner.Spawning = true;
@@ -62,14 +66,16 @@ public class GameController : MonoBehaviour {
 
     private void CheckForWaveEnd() {
         if (!enemySpawner.Spawning && enemySpawner.GetEnemiesRemaining() == 0) {
-            print("Ending wave " + waveNumber);
-            enemySpawner.Spawning = false;
-            nextWaveTime = Time.time + timeBetweenWaves;
-            waveActive = false;
+            EndWave();
         }
+
     }
 
-
+    private void EndWave() {
+        enemySpawner.Spawning = false;
+        nextWaveTime = Time.time + timeBetweenWaves;
+        waveActive = false;
+    }
 
 
     public void StartGame() {
@@ -78,6 +84,15 @@ public class GameController : MonoBehaviour {
         player.SetActive(true);
         enemySpawner.enabled = true;
         playing = true;
+    }
+
+    public void CheckDeath() {
+        if (!playerInput.Alive()) {
+            // TODO show score screen
+            LeaveGame(); // TODO remove this
+            playing = false;
+            EndWave();
+        }
     }
 
     public void ResumeGame() {
@@ -102,10 +117,12 @@ public class GameController : MonoBehaviour {
 
     private void ResetGame() {
         player.SetActive(false);
+        playerInput.RestoreHealth();
         player.transform.position = Vector3.up;
         enemySpawner.enabled = false;
         enemySpawner.DestroyAll();
         waveNumber = 0;
+        playerKills = 0;
     }
 
 	public void QuitGame() {

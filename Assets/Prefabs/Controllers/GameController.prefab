@@ -278,6 +278,7 @@ MonoBehaviour:
   menuPanel: {fileID: 0}
   settingsPanel: {fileID: 0}
   pausePanel: {fileID: 0}
+  gamePanel: {fileID: 0}
   MusicController: {fileID: 114849355791805448}
 --- !u!114 &114849355791805448
 MonoBehaviour:
@@ -306,5 +307,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 0}
-  masterTimeline: {fileID: 0}
   player: {fileID: 0}
+  timeBetweenWaves: 3
+  enemiesWaveMultiplier: 50

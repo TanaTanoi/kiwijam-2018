@@ -11,6 +11,8 @@ public class MenuController : MonoBehaviour {
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject gamePanel;
+
     public MusicController MusicController;
 
     public void SetVolume(float vol) {
@@ -21,16 +23,19 @@ public class MenuController : MonoBehaviour {
         menuPanel.SetActive(true);
         settingsPanel.SetActive(false);
         pausePanel.SetActive(false);
+        gamePanel.SetActive(false);
     }
 
     public void ShowPauseMenu() {
         menuPanel.SetActive(false);
+        gamePanel.SetActive(false);
         pausePanel.SetActive(true);
     }
 
     public void HideMenus() {
         menuPanel.SetActive(false);
         pausePanel.SetActive(false);
+        gamePanel.SetActive(true);
     }
 
     public void ToggleSettings() {
