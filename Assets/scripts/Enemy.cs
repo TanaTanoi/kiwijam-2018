@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour {
 		this.Health = this.MaxHealth;
 		this.animator = GetComponent<Animator>();
         this.animator.SetFloat("speed", -1);
+		this.destination = Target.position;
+		this.agent.destination = destination;
 	}
 
 	void Awake() {
