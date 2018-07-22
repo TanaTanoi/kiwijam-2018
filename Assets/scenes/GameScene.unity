@@ -6129,7 +6129,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -18727,7 +18727,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CREDITS GO HERE
+  m_Text: 'TANA - CULLUM - DARREN - NICOLA
+
+    KiwiJam 2018
+
+    Music + some sounds: Tana
+
+    Various sounds: soundbible.com'
 --- !u!222 &1444959610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21099,6 +21105,11 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1698063056}
+    - target: {fileID: 114135355639467220, guid: 370c2d2d8c5614c239c223ede0d25e43,
+        type: 2}
+      propertyPath: instructionsPanel
+      value: 
+      objectReference: {fileID: 2037671952}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 370c2d2d8c5614c239c223ede0d25e43, type: 2}
   m_IsPrefabAsset: 0
@@ -22149,7 +22160,7 @@ GameObject:
   - component: {fileID: 2037671955}
   - component: {fileID: 2037671954}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Instructions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
