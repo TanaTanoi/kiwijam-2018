@@ -279,7 +279,9 @@ MonoBehaviour:
   settingsPanel: {fileID: 0}
   pausePanel: {fileID: 0}
   gamePanel: {fileID: 0}
+  gameoverPanel: {fileID: 0}
   killsText: {fileID: 0}
+  waveText: {fileID: 0}
   MusicController: {fileID: 114849355791805448}
 --- !u!114 &114849355791805448
 MonoBehaviour:
@@ -310,4 +312,5 @@ MonoBehaviour:
   enemySpawner: {fileID: 0}
   player: {fileID: 0}
   timeBetweenWaves: 3
+  enemyRemainFudge: 3
   enemiesWaveMultiplier: 15

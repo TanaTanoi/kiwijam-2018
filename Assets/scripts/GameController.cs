@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour {
 
     public void StartGame() {
         ResetGame();
-        menuController.HideMenus();
+        menuController.ShowGameMenu();
         player.SetActive(true);
         enemySpawner.enabled = true;
         playing = true;
@@ -108,18 +108,20 @@ public class GameController : MonoBehaviour {
 
     public void CheckDeath() {
         if (!playerInput.Alive()) {
-            // TODO show score screen
-            LeaveGame(); // TODO remove this
+            menuController.ShowGameoverScreen();
+            menuController.UpdateScore(waveNumber, playerKills);
+            ResetGame();
             playing = false;
             EndWave();
         }
     }
 
     public void ResumeGame() {
-        menuController.HideMenus();
+        menuController.ShowGameMenu();
         enemySpawner.Spawning = true;
         player.SetActive(true);
         playing = true;
+        Time.timeScale = 1;
     }
 
     public void PauseGame() {
@@ -127,6 +129,7 @@ public class GameController : MonoBehaviour {
         enemySpawner.Spawning = false;
         player.SetActive(false);
         playing = false;
+        Time.timeScale = 0;
     }
 
     public void LeaveGame() {
@@ -145,6 +148,7 @@ public class GameController : MonoBehaviour {
         playerKills = 0;
         menuController.UpdateWave(waveNumber);
         menuController.UpdateScore(playerKills);
+        Time.timeScale = 1;
     }
 
 	public void QuitGame() {

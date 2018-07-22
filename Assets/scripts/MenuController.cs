@@ -11,8 +11,10 @@ public class MenuController : MonoBehaviour {
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gamePanel;
+    [SerializeField] private GameObject gameoverPanel;
     [SerializeField] private Text killsText;
     [SerializeField] private Text waveText;
+    [SerializeField] private Text scoreText;
 
     public MusicController MusicController;
 
@@ -20,23 +22,36 @@ public class MenuController : MonoBehaviour {
         MusicController.Volume = vol;
     }
 
-    public void ShowMainMenu() {
-        menuPanel.SetActive(true);
+    private void HideAllPanels() {
+        menuPanel.SetActive(false);
         settingsPanel.SetActive(false);
-        pausePanel.SetActive(false);
         gamePanel.SetActive(false);
+        gameoverPanel.SetActive(false);
+        pausePanel.SetActive(false);
+    }
+
+    public void ShowMainMenu() {
+        HideAllPanels();
+        menuPanel.SetActive(true);
     }
 
     public void ShowPauseMenu() {
-        menuPanel.SetActive(false);
-        gamePanel.SetActive(false);
+        HideAllPanels();
         pausePanel.SetActive(true);
     }
 
-    public void HideMenus() {
-        menuPanel.SetActive(false);
-        pausePanel.SetActive(false);
+    public void ShowGameMenu() {
+        HideAllPanels();
         gamePanel.SetActive(true);
+    }
+
+    public void ShowGameoverScreen() {
+        HideAllPanels();
+        gameoverPanel.SetActive(true);
+    }
+
+    public void UpdateScore(int wave, int kills) {
+        scoreText.text = "SCORE: " + wave*kills;
     }
 
     public void UpdateScore(int kills) {
@@ -46,6 +61,8 @@ public class MenuController : MonoBehaviour {
     public void UpdateWave(int wave) {
         waveText.text = "WAVE: " + wave;
     }
+
+
 
     public void ToggleSettings() {
         settingsPanel.SetActive(!settingsPanel.activeSelf);
