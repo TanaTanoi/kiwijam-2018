@@ -19,7 +19,9 @@ public class WaterPlane : MonoBehaviour {
 			Destroy(splash, splash.main.duration);
 			// if its falling, remove it
 			if (Vector3.Dot(otherRigidbody.velocity.normalized, Vector3.down) > 0) {
-                gameController.IncrementKills();
+                if (other.CompareTag("Enemy")) {
+                    gameController.IncrementKills();
+                }
                 Destroy(other.gameObject);
 			}
 		}
