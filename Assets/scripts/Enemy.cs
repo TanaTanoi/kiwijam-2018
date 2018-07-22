@@ -7,7 +7,7 @@ using UnityEditor.Animations;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour {
-	protected const float BASE_DAMAGE = 5;
+	protected virtual float BaseDamage { get { return 5; } }
 	protected const float SHELL_DAMAGE_BOOST = 2;
 
 	protected const double BASE_SPEED = 2;
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour {
 
 	public float Health { get; private set; }
 
-	public float Damage = BASE_DAMAGE;
+	public float Damage;
 
 	protected int shells;
 	private AudioSource attackSound;
@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour {
         this.animator.SetFloat("speed", -1);
 		this.destination = Target.position;
 		this.agent.destination = destination;
+		this.Damage = this.BaseDamage;
 	}
 
 	void Awake() {
@@ -60,6 +61,7 @@ public class Enemy : MonoBehaviour {
 		attackSound = attackSound ?? GetComponent<AudioSource>();
 		this.rigidbody.isKinematic = true;
 		this.Health = this.MaxHealth;
+		this.Damage = this.BaseDamage;
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -74,10 +76,11 @@ public class Enemy : MonoBehaviour {
 		shells+=delta;
 
 		agent.speed = (float)(BASE_SPEED + shells * SHELL_SPEED_BOOST);
-		Damage = BASE_DAMAGE + shells * SHELL_DAMAGE_BOOST;
+		Damage = BaseDamage + shells * SHELL_DAMAGE_BOOST;
 	}
 
 	public void OnCollisionEnter(Collision other) {
+		CameraController.instance.Shake(0.01f, 0.1f);
 		this.HitSomething(other.collider);
 	}
 

@@ -6,7 +6,7 @@ public class GunController : MonoBehaviour {
     private Transform rubbishBin;
 	private const string FIRE_KEY = "space";
 	public AudioSource laserSound;
-	public const float SHOOT_COOLDOWN = 0.5f;
+	public const float SHOOT_COOLDOWN = 0.75f;
 	private Rigidbody rb;
   private Animator animator;
 

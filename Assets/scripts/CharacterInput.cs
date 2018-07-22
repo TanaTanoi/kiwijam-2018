@@ -58,7 +58,7 @@ public class CharacterInput : MonoBehaviour {
 	}
 
 	private void Kick() {
-		if (this.timeSinceLastKicked > 2 && Input.GetKeyDown(KeyCode.Q)) {
+		if (this.timeSinceLastKicked > 0.5f && Input.GetKeyDown(KeyCode.Q)) {
 			kickEffect.Play();
 			CameraController.instance.Shake(0.05f, 0.5f);
 			this.timeSinceLastKicked = 0;
