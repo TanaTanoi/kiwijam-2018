@@ -19,7 +19,7 @@ public class GunController : MonoBehaviour {
 		if (this.timeSinceLastShot > SHOOT_COOLDOWN && Input.GetKeyDown(FIRE_KEY)) {
 			this.timeSinceLastShot = 0;
 			Transform clone = Instantiate(bullet, transform.position, Quaternion.identity);
-			this.laserSound.pitch = UnityEngine.Random.Range(2f, 2.5f);
+			this.laserSound.pitch = UnityEngine.Random.Range(2.1f, 2.3f);
 			this.laserSound.Play();
 
 			shot.Play();
