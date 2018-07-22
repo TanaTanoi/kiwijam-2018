@@ -18,6 +18,9 @@ public class CharacterInput : MonoBehaviour {
 	private Animator animator;
 	private int shells = 0;
 	private const double SHELL_DAMAGE = 0.5;
+	public float ShellDamageRate {
+		get { return (float)this.RegenRate - shells * (float)SHELL_DAMAGE; }
+	}
 
 	TimeSince timeSinceLastKicked;
 	public AudioSource kickEffect;

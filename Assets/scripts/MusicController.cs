@@ -18,6 +18,10 @@ public class MusicController : MonoBehaviour {
 
 	/* 1 for good music 0 for dark */
 	public float MusicRatio() {
-		return Mathf.Clamp((float)character.RegenRate, 0, 1);
+		if (character != null) {
+			return Mathf.Clamp((float)character.ShellDamageRate, 0, 3) / 3;
+		} else {
+			return 1;
+		}
 	}
 }
