@@ -8,12 +8,14 @@ public class GunController : MonoBehaviour {
 	public AudioSource laserSound;
 	public const float SHOOT_COOLDOWN = 0.5f;
 	private Rigidbody rb;
+  private Animator animator;
 
 	public ParticleSystem shot;
 	public Transform bullet;
 	TimeSince timeSinceLastShot;
 
 	void Start() {
+    animator = transform.parent.GetComponent<Animator>();
 		this.laserSound = this.laserSound ?? this.GetComponent<AudioSource>();
 		this.rb = transform.parent.GetComponent<Rigidbody>();
         this.rubbishBin = GameController.Instance.GetSpawnerTransform();
@@ -27,6 +29,7 @@ public class GunController : MonoBehaviour {
 			this.laserSound.Play();
 			this.rb.AddForce(-rb.transform.forward * 1000);
 			CameraController.instance.Shake(0.01f, 0.3f);
+      animator.SetTrigger("shoot");
 
 			shot.Play();
 		}
