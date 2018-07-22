@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
 
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject[] enemyPrefab;
     [SerializeField] private float spawnInterval = 1f;
     [SerializeField] private float intervalWiggle = 0.2f;
     [SerializeField] private Transform spawnRegion;
@@ -63,8 +63,8 @@ public class EnemySpawner : MonoBehaviour {
         spawnPosition.x += Random.Range(-(spawnRegion.lossyScale.x/2), spawnRegion.lossyScale.x/2);
         spawnPosition.y += Random.Range(-(spawnRegion.lossyScale.y/2), spawnRegion.lossyScale.y/2);
         spawnPosition.z += Random.Range(-(spawnRegion.lossyScale.z/2), spawnRegion.lossyScale.z/2);
-
-        GameObject instance = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
+        int enemyIndex = Random.Range(0, enemyPrefab.Length);
+        GameObject instance = Instantiate(enemyPrefab[enemyIndex], spawnPosition, Quaternion.identity, transform);
         instance.GetComponent<Enemy>().Spawn(enemyTarget);
         enemyPool.Add(instance);
     }
