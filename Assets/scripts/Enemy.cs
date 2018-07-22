@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour {
 	protected const double BASE_SPEED = 2;
 	protected const double SHELL_SPEED_BOOST = 1;
 
+	public ParticleSystem deathEffect;
+
 	public Transform Target;
 
 	protected NavMeshAgent agent;
@@ -89,6 +91,17 @@ public class Enemy : MonoBehaviour {
 	void OnParticleCollision(GameObject other) {
 		// TODO: balance health loss per particle hit against particle amount
 		this.Health--;
+		if (this.Health < 0) {
+			Debug.Log("DED");
+			ParticleSystem swirl = Instantiate<ParticleSystem>(deathEffect);
+			swirl.transform.position = gameObject.transform.position + Vector3.up * 2;
+			swirl.transform.parent = this.transform;
+			// swirl.Play();
+			Destroy(swirl, swirl.main.duration);
+			if (alive) {
+				this.Kill(after: swirl.main.duration);
+			}
+		}
 		Vector3 shotDirection = (this.transform.position - other.transform.position).normalized * 100;
 		this.Launch(shotDirection, 0.1f); // TODO magic numbers are fun
   }
@@ -97,7 +110,7 @@ public class Enemy : MonoBehaviour {
         if (!alive) {return;}
 
 		if (this.Health <= 0) {
-			this.Kill();
+			// this.Kill();
 		}
 		this.UpdateBehaviour();
 		this.animator.SetFloat("speed", this.agent.velocity.magnitude);
@@ -121,12 +134,13 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	public bool Kill() {
+	public bool Kill(float after = 0) {
         alive = false;
 		this.agent.enabled = false;
 		this.rigidbody.isKinematic = false;
         gameObject.tag = "Untagged";
         gameController.IncrementKills(gameObject);
+		Destroy(this.gameObject, after);
 		return true;
 	}
 

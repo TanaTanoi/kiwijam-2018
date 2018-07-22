@@ -138,11 +138,13 @@ public class GameController : MonoBehaviour {
     private void ResetGame() {
         player.SetActive(false);
         playerInput.RestoreHealth();
-        player.transform.position = Vector3.up;
+        player.transform.position = Vector3.zero;
         enemySpawner.enabled = false;
         enemySpawner.DestroyAll();
         waveNumber = 0;
         playerKills = 0;
+        menuController.UpdateWave(waveNumber);
+        menuController.UpdateScore(playerKills);
     }
 
 	public void QuitGame() {
