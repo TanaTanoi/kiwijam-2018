@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour {
     private bool playing = false;
 
     [SerializeField] private float timeBetweenWaves = 3f;
-
+    [SerializeField] private int enemyRemainFudge = 3;
     [Tooltip("waveNumber * enemiesWaveMultiplier = number of enemies to spawn")]
     [SerializeField] private int enemiesWaveMultiplier = 50;
 
@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour {
     }
 
     private void CheckForWaveEnd() {
-        if (!enemySpawner.Spawning && enemySpawner.GetEnemiesRemaining() == 0) {
+        if (!enemySpawner.Spawning && enemySpawner.GetEnemiesRemaining() < enemyRemainFudge) {
             EndWave();
         }
 
