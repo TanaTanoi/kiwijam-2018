@@ -19,7 +19,8 @@ public class ChargeEnemy : Enemy {
 		}
 	}
 
-	public virtual float MaxHealth { get { return 10; } }
+	protected virtual float BaseDamage { get { return 15; } }
+	public override float MaxHealth { get { return 5; } }
 
 	private bool FinishedCharging { get { return this.IsCharging && this.currentMovePositionIndex >= this.movePositions.Count; } }
 	public const float CHARGE_DISTANCE = 30;
@@ -28,10 +29,14 @@ public class ChargeEnemy : Enemy {
 		Vector3 direction = (collider.transform.position - transform.position).normalized;
 		Enemy enemy = collider.GetComponent<Enemy>();
 		Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
+		CharacterInput player = collider.GetComponent<CharacterInput>();
 		float multiplier = UnityEngine.Random.Range(200, 400);
 		Vector3 force = direction * multiplier + transform.up * 100;
 		if (enemy != null) {
 			enemy.Launch(force, 1);
+		} else if (player != null) {
+			CameraController.instance.Shake(0.07f, 0.4f);
+			rigidbody.AddForce(force * 5);
 		} else if (rigidbody != null) {
 			rigidbody.AddForce(force);
 		}

@@ -20,9 +20,11 @@ public class CharacterInput : MonoBehaviour {
 	private const double SHELL_DAMAGE = 0.5;
 
 	TimeSince timeSinceLastKicked;
+	public AudioSource kickEffect;
 
 	void Start() {
 		animator = GetComponent<Animator>();
+		kickEffect = GetComponent<AudioSource>();
 	}
 
 	void Update() {
@@ -56,7 +58,8 @@ public class CharacterInput : MonoBehaviour {
 	}
 
 	private void Kick() {
-		if (this.timeSinceLastKicked > 2 && Input.GetKeyDown(KeyCode.Q)) {
+		if (this.timeSinceLastKicked > 0.5f && Input.GetKeyDown(KeyCode.Q)) {
+			kickEffect.Play();
 			CameraController.instance.Shake(0.05f, 0.5f);
 			this.timeSinceLastKicked = 0;
 			Collider[] hitColliders = Physics.OverlapSphere(transform.forward * 0.1f + transform.position, 3);

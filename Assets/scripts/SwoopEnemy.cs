@@ -21,6 +21,9 @@ public class SwoopEnemy : Enemy {
 			}
 		}
 	}
+
+	public override float MaxHealth { get { return 2; } }
+
 	private bool FinishedSwooping { get { return this.isSwooping && this.currentMovePositionIndex >= this.movePositions.Count; } }
 	public float swoopOffset = 10;
 	public const float SWOOPING_DISTANCE = 20;
