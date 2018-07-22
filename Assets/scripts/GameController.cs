@@ -77,6 +77,7 @@ public class GameController : MonoBehaviour {
 
     private void StartWave() {
         waveNumber++;
+        menuController.UpdateWave(waveNumber);
         enemySpawner.EnemiesToSpawn = waveNumber * enemiesWaveMultiplier;
         // TODO increase the spawn rate with waveNumber
         enemySpawner.Spawning = true;

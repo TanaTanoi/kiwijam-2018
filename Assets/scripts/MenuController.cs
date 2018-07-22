@@ -12,6 +12,7 @@ public class MenuController : MonoBehaviour {
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gamePanel;
     [SerializeField] private Text killsText;
+    [SerializeField] private Text waveText;
 
     public MusicController MusicController;
 
@@ -39,7 +40,11 @@ public class MenuController : MonoBehaviour {
     }
 
     public void UpdateScore(int kills) {
-        killsText.text = "Kills: " + kills;
+        killsText.text = "KILLS: " + kills;
+    }
+
+    public void UpdateWave(int wave) {
+        waveText.text = "WAVE: " + wave;
     }
 
     public void ToggleSettings() {
