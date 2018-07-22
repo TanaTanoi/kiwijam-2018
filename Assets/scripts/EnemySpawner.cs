@@ -56,6 +56,10 @@ public class EnemySpawner : MonoBehaviour {
             Destroy(e);
         }
         enemyPool.Clear();
+        int childCount = transform.childCount;
+        for (int i = childCount-1; i >= 0; i--) {
+            Destroy(transform.GetChild(i).gameObject);
+        }
     }
 
     private void SpawnEnemy() {
