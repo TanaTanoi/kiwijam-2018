@@ -51,17 +51,17 @@ public class CharacterInput : MonoBehaviour {
 	private void Kick() {
 		if (this.timeSinceLastKicked > 2 && Input.GetKeyDown(KeyCode.Q)) {
 			this.timeSinceLastKicked = 0;
-			Collider[] hitColliders = Physics.OverlapSphere(transform.forward + transform.position, 2);
+			Collider[] hitColliders = Physics.OverlapSphere(transform.forward * 0.1f + transform.position, 3);
 			for (int i = 0; i < hitColliders.Length; i++) {
 				Collider collider = hitColliders[i];
 				Vector3 direction = (collider.transform.position - transform.position).normalized;
 				if (Vector3.Dot(direction, transform.forward) > 0.5) {
 					Enemy enemy = collider.GetComponent<Enemy>();
 					Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
-					float multiplier = UnityEngine.Random.Range(450, 600);
-					Vector3 force = direction * multiplier + transform.forward * multiplier + transform.up * 300;
+					float multiplier = UnityEngine.Random.Range(300, 450);
+					Vector3 force = direction * multiplier + transform.forward * multiplier + transform.up * 150;
 					if (enemy != null) {
-						enemy.Launch(force, 3);
+						enemy.Launch(force, 2);
 					} else if (rigidbody != null) {
 						rigidbody.AddForce(force);
 					}
