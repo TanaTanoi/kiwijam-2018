@@ -21,6 +21,7 @@ public class CharacterInput : MonoBehaviour {
 
 	TimeSince timeSinceLastKicked;
 	public AudioSource kickEffect;
+	public ParticleSystem kickParticles;
 
 	void Start() {
 		animator = GetComponent<Animator>();
@@ -60,6 +61,7 @@ public class CharacterInput : MonoBehaviour {
 	private void Kick() {
 		if (this.timeSinceLastKicked > 0.5f && Input.GetKeyDown(KeyCode.Q)) {
 			kickEffect.Play();
+			kickParticles.Play();
 			CameraController.instance.Shake(0.05f, 0.5f);
 			this.timeSinceLastKicked = 0;
 			Collider[] hitColliders = Physics.OverlapSphere(transform.forward * 0.1f + transform.position, 3);
