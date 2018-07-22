@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour {
     }
 
     [SerializeField] private EnemySpawner enemySpawner;
-    [SerializeField] private GameObject player;
+    public CharacterInput player;
     private CharacterInput playerInput;
     MenuController menuController;
 
@@ -101,9 +101,10 @@ public class GameController : MonoBehaviour {
     public void StartGame() {
         ResetGame();
         menuController.ShowGameMenu();
-        player.SetActive(true);
+        player.gameObject.SetActive(true);
         enemySpawner.enabled = true;
         playing = true;
+        player.Reset();
     }
 
     public void CheckDeath() {
@@ -119,7 +120,7 @@ public class GameController : MonoBehaviour {
     public void ResumeGame() {
         menuController.ShowGameMenu();
         enemySpawner.Spawning = true;
-        player.SetActive(true);
+        player.gameObject.SetActive(true);
         playing = true;
         Time.timeScale = 1;
     }
@@ -127,7 +128,7 @@ public class GameController : MonoBehaviour {
     public void PauseGame() {
         menuController.ShowPauseMenu();
         enemySpawner.Spawning = false;
-        player.SetActive(false);
+        player.gameObject.SetActive(false);
         playing = false;
         Time.timeScale = 0;
     }
@@ -139,7 +140,7 @@ public class GameController : MonoBehaviour {
     }
 
     private void ResetGame() {
-        player.SetActive(false);
+        player.gameObject.SetActive(false);
         playerInput.RestoreHealth();
         player.transform.position = Vector3.zero;
         enemySpawner.enabled = false;

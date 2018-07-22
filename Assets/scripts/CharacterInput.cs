@@ -49,6 +49,10 @@ public class CharacterInput : MonoBehaviour {
         health = MAX_HEALTH;
     }
 
+	public void Reset() {
+		this.shells = 0;
+	}
+
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Toxic")) { shells++; }
 	}
