@@ -7,6 +7,7 @@ using UnityEditor.Animations;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour {
+
 	public Transform Target;
 
 	protected NavMeshAgent agent;
@@ -22,6 +23,9 @@ public class Enemy : MonoBehaviour {
 
 	public virtual float Damage { get { return 1; } }
 
+    private GameController gameController;
+    private bool alive = true;
+
 	public void Spawn(Transform target) {
         this.Target = target;
 		this.agent = this.GetComponent<NavMeshAgent>();
@@ -33,6 +37,8 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void Awake() {
+        gameController = GameController.Instance;
+
 		this.agent = this.agent ?? this.GetComponent<NavMeshAgent>();
 		this.rigidbody = this.rigidbody ?? this.GetComponent<Rigidbody>();
 		this.animator = this.animator ?? GetComponent<Animator>();
@@ -60,6 +66,8 @@ public class Enemy : MonoBehaviour {
     }
 
 	public void Update() {
+        if (!alive) {return;}
+
 		if (this.Health <= 0) {
 			this.Kill();
 		}
@@ -86,9 +94,10 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public bool Kill() {
+        alive = false;
 		this.agent.enabled = false;
 		this.rigidbody.isKinematic = false;
-		Debug.Log("I DED :(");
+        gameController.IncrementKills();
 		return true;
 	}
 

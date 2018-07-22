@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class WaterPlane : MonoBehaviour {
 	public ParticleSystem splashEffect;
+    private GameController gameController;
 
-	void Update() {
-	}
+    void Awake() {
+        gameController = GameController.Instance;
+    }
 
 	void OnTriggerEnter(Collider other) {
 		Rigidbody otherRigidbody = other.GetComponent<Rigidbody>();
@@ -17,7 +19,8 @@ public class WaterPlane : MonoBehaviour {
 			Destroy(splash, splash.main.duration);
 			// if its falling, remove it
 			if (Vector3.Dot(otherRigidbody.velocity.normalized, Vector3.down) > 0) {
-				Destroy(other.gameObject);
+                gameController.IncrementKills();
+                Destroy(other.gameObject);
 			}
 		}
 	}

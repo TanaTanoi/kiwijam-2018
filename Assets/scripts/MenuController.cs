@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour {
 
@@ -12,6 +11,7 @@ public class MenuController : MonoBehaviour {
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gamePanel;
+    [SerializeField] private Text killsText;
 
     public MusicController MusicController;
 
@@ -36,6 +36,10 @@ public class MenuController : MonoBehaviour {
         menuPanel.SetActive(false);
         pausePanel.SetActive(false);
         gamePanel.SetActive(true);
+    }
+
+    public void UpdateScore(int kills) {
+        killsText.text = "Kills: " + kills;
     }
 
     public void ToggleSettings() {

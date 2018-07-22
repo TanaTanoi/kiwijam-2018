@@ -7,6 +7,16 @@ using UnityEngine.Playables;
 
 public class GameController : MonoBehaviour {
 
+    public static GameController Instance = null;
+
+    void Awake() {
+        if (Instance == null) {
+            Instance = this;
+        } else {
+            Destroy(this);
+        }
+    }
+
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private GameObject player;
     private CharacterInput playerInput;
@@ -54,6 +64,10 @@ public class GameController : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void IncrementKills() {
+        menuController.UpdateScore(++playerKills);
     }
 
     private void StartWave() {

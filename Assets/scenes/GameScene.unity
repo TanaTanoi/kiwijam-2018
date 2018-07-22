@@ -3228,9 +3228,24 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2125482491}
+    - target: {fileID: 1596242847013446, guid: f3e0b13ffed2d4a358fc6f4d1a3d4aba, type: 2}
+      propertyPath: m_Name
+      value: KillsText
+      objectReference: {fileID: 0}
+    - target: {fileID: 224636046057185844, guid: f3e0b13ffed2d4a358fc6f4d1a3d4aba,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3e0b13ffed2d4a358fc6f4d1a3d4aba, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &701273424 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114116396474662656, guid: f3e0b13ffed2d4a358fc6f4d1a3d4aba,
+    type: 2}
+  m_PrefabInternal: {fileID: 701273423}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!4 &701665073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4898458119993624, guid: aff47d0fca1e53244a323dbd82ddc90a,
@@ -8197,6 +8212,11 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 1104914452}
+    - target: {fileID: 114135355639467220, guid: 370c2d2d8c5614c239c223ede0d25e43,
+        type: 2}
+      propertyPath: killsText
+      value: 
+      objectReference: {fileID: 701273424}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 370c2d2d8c5614c239c223ede0d25e43, type: 2}
   m_IsPrefabAsset: 0
