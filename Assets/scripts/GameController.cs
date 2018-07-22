@@ -138,7 +138,7 @@ public class GameController : MonoBehaviour {
     private void ResetGame() {
         player.SetActive(false);
         playerInput.RestoreHealth();
-        player.transform.position = Vector3.up;
+        player.transform.position = Vector3.zero;
         enemySpawner.enabled = false;
         enemySpawner.DestroyAll();
         waveNumber = 0;
