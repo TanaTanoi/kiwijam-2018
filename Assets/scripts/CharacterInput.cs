@@ -15,10 +15,15 @@ public class CharacterInput : MonoBehaviour {
 	private double health;
 	public double Health { get { return this.health; } }
 
+	private Animator animator;
 	private int shells = 0;
 	private const double SHELL_DAMAGE = 0.5;
 
 	TimeSince timeSinceLastKicked;
+
+	void Start() {
+		animator = GetComponent<Animator>();
+	}
 
 	void Update() {
 		if (Alive()) {
@@ -99,10 +104,9 @@ public class CharacterInput : MonoBehaviour {
 			0,
 			Input.GetAxis("Horizontal")
 		).normalized;
-		// if (transform.position.x > -14) {
-		// 	transform.position += Vector3.right;
-		// }
-		// transform.position += movement * SPEED * Time.deltaTime;
+
+		animator.SetBool("moving", movement.magnitude != 0);
+
 		Rigidbody rigidbody = GetComponent<Rigidbody>();
 		rigidbody.AddForce(movement * SPEED * Time.deltaTime * rigidbody.mass);
 	}
