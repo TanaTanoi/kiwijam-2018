@@ -40,8 +40,8 @@ public class Enemy : MonoBehaviour {
 		this.Health = this.MaxHealth;
 	}
 
-	public void OnCollisionEnter(Collider other) {
-		this.HitSomething(other);
+	public void OnCollisionEnter(Collision other) {
+		this.HitSomething(other.collider);
 	}
 
 	public virtual void HitSomething(Collider other) {
