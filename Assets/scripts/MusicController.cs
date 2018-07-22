@@ -13,7 +13,7 @@ public class MusicController : MonoBehaviour {
 	void FixedUpdate () {
 		float ratio = MusicRatio();
 		normalMusic.volume = ratio * this.Volume;
-		darkMusic.volume = 1 - ratio * this.Volume;
+		darkMusic.volume = (1 - ratio) * this.Volume;
 	}
 
 	/* 1 for good music 0 for dark */

@@ -9,6 +9,7 @@ public class MenuController : MonoBehaviour {
     [SerializeField] private float volume = 0.5f;
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject instructionsPanel;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gamePanel;
     [SerializeField] private GameObject gameoverPanel;
@@ -65,6 +66,7 @@ public class MenuController : MonoBehaviour {
 
 
     public void ToggleSettings() {
+        instructionsPanel.SetActive(settingsPanel.activeSelf);
         settingsPanel.SetActive(!settingsPanel.activeSelf);
     }
 

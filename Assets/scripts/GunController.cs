@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour {
     private Transform rubbishBin;
-	private const string FIRE_KEY = "space";
+	private const string FIRE_KEY = "Fire1";
 	public AudioSource laserSound;
 	public const float SHOOT_COOLDOWN = 0.75f;
 	private Rigidbody rb;
@@ -22,7 +22,7 @@ public class GunController : MonoBehaviour {
 	}
 
 	void Update () {
-		if (this.timeSinceLastShot > SHOOT_COOLDOWN && Input.GetKeyDown(FIRE_KEY)) {
+		if (this.timeSinceLastShot > SHOOT_COOLDOWN && Input.GetButtonDown(FIRE_KEY)) {
 			this.timeSinceLastShot = 0;
 			Transform clone = Instantiate(bullet, transform.position + transform.right, Quaternion.identity, rubbishBin);
 			this.laserSound.pitch = UnityEngine.Random.Range(2.1f, 2.3f);
