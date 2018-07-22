@@ -66,6 +66,10 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    public Transform GetSpawnerTransform() {
+        return enemySpawner.transform;
+    }
+
     public void IncrementKills(GameObject enemy) {
         menuController.UpdateScore(++playerKills);
         enemySpawner.Kill(enemy);
