@@ -19,7 +19,7 @@ public class ChargeEnemy : Enemy {
 		}
 	}
 
-	public virtual float MaxHealth { get { return 10; } }
+	public override float MaxHealth { get { return 5; } }
 
 	private bool FinishedCharging { get { return this.IsCharging && this.currentMovePositionIndex >= this.movePositions.Count; } }
 	public const float CHARGE_DISTANCE = 30;

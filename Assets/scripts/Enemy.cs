@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour {
 
 	public Transform Target;
 
+	private TimeSince timeSinceHit;
+	private const float InvulTime = 0.1f;
+
 	protected NavMeshAgent agent;
 	protected Vector3 destination;
 	private Animator animator;
@@ -24,7 +27,7 @@ public class Enemy : MonoBehaviour {
 	TimeSince timeSinceStunned;
 	private float stunDuration = 0;
 	protected bool stunned = false;
-	public virtual float MaxHealth { get { return 1; } }
+	public virtual float MaxHealth { get { return 2; } }
 
 	public float Health { get; private set; }
 
@@ -90,11 +93,17 @@ public class Enemy : MonoBehaviour {
 	/* Hit by bullet thing */
 	void OnParticleCollision(GameObject other) {
 		// TODO: balance health loss per particle hit against particle amount
+		if (this.timeSinceHit < InvulTime) {
+			return;
+		}
+		this.timeSinceHit = 0;
 		this.Health--;
+		Debug.Log("Taking HP " + this.Health);
 		if (this.Health < 0) {
 			Debug.Log("DED");
 			ParticleSystem swirl = Instantiate<ParticleSystem>(deathEffect);
-			swirl.transform.position = gameObject.transform.position + Vector3.up * 2;
+			swirl.transform.position = gameObject.transform.position;
+			swirl.transform.localScale = Vector3.one * 5;
 			swirl.transform.parent = this.transform;
 			// swirl.Play();
 			Destroy(swirl, swirl.main.duration);
