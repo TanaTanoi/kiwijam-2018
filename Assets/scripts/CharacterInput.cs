@@ -7,7 +7,7 @@ public class CharacterInput : MonoBehaviour {
 	public Camera camera;
 	public Slider HealthBar;
 
-	private const float SPEED = 1000;
+	private const float SPEED = 10000;
 	private const int MAX_HEALTH = 100;
 
 	private double regenRate = 3;
@@ -98,13 +98,13 @@ public class CharacterInput : MonoBehaviour {
 			-Input.GetAxis("Vertical"),
 			0,
 			Input.GetAxis("Horizontal")
-		);
+		).normalized;
 		// if (transform.position.x > -14) {
 		// 	transform.position += Vector3.right;
 		// }
 		// transform.position += movement * SPEED * Time.deltaTime;
 		Rigidbody rigidbody = GetComponent<Rigidbody>();
-		rigidbody.AddForce(movement * SPEED * Time.deltaTime);
+		rigidbody.AddForce(movement * SPEED * Time.deltaTime * rigidbody.mass);
 	}
 
 	private void UpdateHealthBar() {

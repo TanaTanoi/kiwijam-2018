@@ -26,7 +26,7 @@ public class GunController : MonoBehaviour {
 			Transform clone = Instantiate(bullet, transform.position + transform.forward, Quaternion.identity);
 			this.laserSound.pitch = UnityEngine.Random.Range(2.1f, 2.3f);
 			this.laserSound.Play();
-			this.rb.AddForce(-rb.transform.forward * 300);
+			this.rb.AddForce(-rb.transform.forward * 1000);
 			CameraController.instance.Shake(0.01f, 0.3f);
 
 			shot.Play();
