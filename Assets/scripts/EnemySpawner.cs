@@ -41,6 +41,12 @@ public class EnemySpawner : MonoBehaviour {
         }
 	}
 
+    public void Kill(GameObject enemy) {
+        if(!enemyPool.Remove(enemy)) {
+            Debug.Log("Failed to remove enemy");
+        }
+    }
+
     public int GetEnemiesRemaining() {
         return enemyPool.Count;
     }

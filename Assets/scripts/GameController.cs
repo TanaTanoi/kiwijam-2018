@@ -66,8 +66,9 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void IncrementKills() {
+    public void IncrementKills(GameObject enemy) {
         menuController.UpdateScore(++playerKills);
+        enemySpawner.Kill(enemy);
     }
 
     private void StartWave() {

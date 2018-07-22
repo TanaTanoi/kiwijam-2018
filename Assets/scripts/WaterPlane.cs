@@ -20,7 +20,7 @@ public class WaterPlane : MonoBehaviour {
 			// if its falling, remove it
 			if (Vector3.Dot(otherRigidbody.velocity.normalized, Vector3.down) > 0) {
                 if (other.CompareTag("Enemy")) {
-                    gameController.IncrementKills();
+                    gameController.IncrementKills(other.gameObject);
                 }
                 Destroy(other.gameObject);
 			}

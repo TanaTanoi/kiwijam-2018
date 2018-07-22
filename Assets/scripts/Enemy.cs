@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour {
         alive = false;
 		this.agent.enabled = false;
 		this.rigidbody.isKinematic = false;
-        gameController.IncrementKills();
+        gameController.IncrementKills(gameObject);
 		return true;
 	}
 
