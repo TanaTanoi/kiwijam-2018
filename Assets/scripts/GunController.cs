@@ -6,7 +6,7 @@ public class GunController : MonoBehaviour {
 	private const string FIRE_KEY = "space";
 	public AudioSource laserSound;
 	public const float SHOOT_COOLDOWN = 0.5f;
-	private const float RECOIL = 0.2f;
+	private Rigidbody rb;
 
 	public ParticleSystem shot;
 	public Transform bullet;
@@ -17,21 +17,18 @@ public class GunController : MonoBehaviour {
 	void Start() {
 		parent = transform.parent;
 		this.laserSound = this.laserSound ?? this.GetComponent<AudioSource>();
+		this.rb = transform.parent.GetComponent<Rigidbody>();
 	}
 
 	void Update () {
 		if (this.timeSinceLastShot > SHOOT_COOLDOWN && Input.GetKeyDown(FIRE_KEY)) {
 			this.timeSinceLastShot = 0;
-			Transform clone = Instantiate(bullet, transform.position, Quaternion.identity);
+			Transform clone = Instantiate(bullet, transform.position + transform.forward, Quaternion.identity);
 			this.laserSound.pitch = UnityEngine.Random.Range(2.1f, 2.3f);
 			this.laserSound.Play();
+			this.rb.AddForce(-rb.transform.forward * 300);
 
-			ApplyRecoil();
 			shot.Play();
 		}
-	}
-
-	private void ApplyRecoil() {
-		parent.position -= parent.forward*RECOIL;
 	}
 }
